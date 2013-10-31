@@ -12,9 +12,9 @@ Cache it!
 
 Details
 -------
-* Saucy 13.10
-* Squid v. 3.3.8
-* Built from source, with --enable-ssl
+* Ubuntu 13.10 (Saucy Salamander).
+* Squid (Version 3.3.8).
+* Built from source, with --enable-ssl.
 * Self-signed certificate automatically generated on startup.
 * Configured to cache Docker images (default config for Squid3 doesn't cache images)
 
