@@ -25,6 +25,10 @@ RUN rm /root/*.deb
 # Install configuration file
 ADD squid3-ssl.conf /etc/squid3/squid3-ssl.conf
 
+# Add certs
+ADD certs /etc/squid3/certs
+RUN chown -R root:root /etc/squid3
+
 # Create cache directory
 RUN mkdir /srv/squid3
 RUN chown proxy:proxy /srv/squid3
