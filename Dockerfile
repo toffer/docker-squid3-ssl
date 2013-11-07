@@ -20,6 +20,7 @@ RUN apt-get -y install libgssapi-krb5-2 libltdl7 libecap2 libnetfilter-conntrack
 # Install from locally generated .deb files
 ADD debs /root/
 RUN dpkg -i /root/*.deb
+RUN rm /root/*.deb
 
 # Install configuration file
 ADD squid3-ssl.conf /etc/squid3/squid3-ssl.conf
