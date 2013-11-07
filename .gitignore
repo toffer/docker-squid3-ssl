@@ -1,1 +1,6 @@
 debs/*.deb
+certs/*.crt
+certs/*.pem
+certs/*.key
+certs/*.cer
+certs/*.der
