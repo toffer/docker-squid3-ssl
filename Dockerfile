@@ -29,6 +29,10 @@ ADD squid3-ssl.conf /etc/squid3/squid3-ssl.conf
 ADD certs /etc/squid3/certs
 RUN chown -R root:root /etc/squid3
 
+# Initialize dynamic certs directory
+RUN /usr/lib/squid3/ssl_crtd -c -s /var/lib/ssl_db
+RUN chown -R proxy:proxy /var/lib/ssl_db
+
 # Create cache directory
 RUN mkdir /srv/squid3
 RUN chown proxy:proxy /srv/squid3
