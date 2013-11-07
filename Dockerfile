@@ -29,6 +29,12 @@ ADD squid3-ssl.conf /etc/squid3/squid3-ssl.conf
 ADD certs /etc/squid3/certs
 RUN chown -R root:root /etc/squid3
 
+# Install certs
+RUN apt-get -y install ca-certificates
+RUN cp -v /etc/squid3/certs/*.crt /usr/share/ca-certificates/
+RUN find /etc/squid3/certs -name '*.crt'  -printf "%f\n" >> /etc/ca-certificates.conf
+RUN /usr/sbin/update-ca-certificates --fresh
+
 # Initialize dynamic certs directory
 RUN /usr/lib/squid3/ssl_crtd -c -s /var/lib/ssl_db
 RUN chown -R proxy:proxy /var/lib/ssl_db
