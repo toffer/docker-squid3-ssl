@@ -34,7 +34,7 @@ RUN mkdir /srv/squid3
 RUN chown proxy:proxy /srv/squid3
 
 # Install run.sh
-ADD run.sh /usr/local/bin/run.sh
+ADD bin/run.sh /usr/local/bin/run.sh
 RUN chmod 755 /usr/local/bin/run.sh
 
 EXPOSE 3128
