@@ -22,8 +22,12 @@ ADD debs /root/
 RUN dpkg -i /root/*.deb
 RUN rm /root/*.deb
 
-# Install configuration file
+# Install configuration files
 ADD config/squid3-ssl.conf /etc/squid3/squid3-ssl.conf
+ADD config/openssl.cnf /etc/squid3/openssl.cnf
+
+# Add certs directory
+ADD certs /etc/squid3/certs
 
 # Initialize dynamic certs directory
 RUN /usr/lib/squid3/ssl_crtd -c -s /var/lib/ssl_db
@@ -32,10 +36,11 @@ RUN chown -R proxy:proxy /var/lib/ssl_db
 # Create cache directory
 RUN mkdir /srv/squid3
 RUN chown proxy:proxy /srv/squid3
+RUN /usr/sbin/squid3 -z -N -f /etc/squid3/squid3-ssl.conf
 
-# Install run.sh
-ADD bin/run.sh /usr/local/bin/run.sh
-RUN chmod 755 /usr/local/bin/run.sh
+# Install run.sh and make-certs.sh
+ADD bin /usr/local/bin/
+RUN chmod 755 /usr/local/bin/run.sh /usr/local/bin/make-certs.sh
 
 EXPOSE 3128
 CMD ["/usr/local/bin/run.sh"]
