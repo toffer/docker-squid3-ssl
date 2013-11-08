@@ -23,7 +23,7 @@ RUN dpkg -i /root/*.deb
 RUN rm /root/*.deb
 
 # Install configuration file
-ADD squid3-ssl.conf /etc/squid3/squid3-ssl.conf
+ADD config/squid3-ssl.conf /etc/squid3/squid3-ssl.conf
 
 # Add certs
 ADD certs /etc/squid3/certs
