@@ -5,12 +5,12 @@
 FROM stackbrew/ubuntu:saucy
 MAINTAINER Tom Offermann <tom@offermann.us>
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu saucy main restricted" > /etc/apt/sources.list
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ saucy-updates main restricted" >> /etc/apt/sources.list
-RUN echo "deb http://security.ubuntu.com/ubuntu saucy-security main restricted" >> /etc/apt/sources.list
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu saucy main restricted" >> /etc/apt/sources.list
-RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ saucy-updates main restricted" >> /etc/apt/sources.list
-RUN echo "deb-src http://security.ubuntu.com/ubuntu saucy-security main restricted" >> /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu saucy main" > /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ saucy-updates main" >> /etc/apt/sources.list
+RUN echo "deb http://security.ubuntu.com/ubuntu saucy-security main" >> /etc/apt/sources.list
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu saucy main" >> /etc/apt/sources.list
+RUN echo "deb-src http://archive.ubuntu.com/ubuntu/ saucy-updates main" >> /etc/apt/sources.list
+RUN echo "deb-src http://security.ubuntu.com/ubuntu saucy-security main" >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y upgrade
 
