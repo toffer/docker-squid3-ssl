@@ -2,32 +2,35 @@
 
 # Generate a private key and a self-signed certificate.
 
-# Use the simplified openssl.cnf config file in the current
-# directory, rather than editing the default one in /etc/ssl/.
-CWD=`pwd`
-CONFIG="$CWD/openssl.cnf"
+# Everything should stay in the same directory.
+DIR=$(readlink -f $0 | xargs dirname)
 
-# Get domain name from config file
-# Domain is used to name self-signed cert file
-DOMAIN=$(grep commonName $CONFIG | cut -d'=' -f 2 | tr -d ' ')
+# Use the simplified openssl.cnf config file in the same
+# directory as this script, rather than editing the default
+# one in /etc/ssl/.
+CONFIG='openssl.cnf'
 
-# Generate private key
-openssl genrsa -out private.key 1024
+# Get domain name from config file.
+# Domain is used to name self-signed cert file.
+DOMAIN=$(grep commonName $DIR/$CONFIG | cut -d'=' -f 2 | tr -d ' ')
 
-# Generate cert signing request
+# Generate private key.
+openssl genrsa -out $DIR/private.pem 1024
+
+# Generate cert signing request.
 openssl req -new \
-    -key private.key \
-    -out proxy.csr \
-    -config $CONFIG
+    -key $DIR/private.pem \
+    -out $DIR/proxy.csr \
+    -config $DIR/$CONFIG
 
-# Generate self-signed cert
+# Generate self-signed cert.
 openssl x509 -req \
     -days 365 \
-    -signkey private.key \
-    -in proxy.csr \
-    -out $DOMAIN.crt \
+    -signkey $DIR/private.pem \
+    -in $DIR/proxy.csr \
+    -out $DIR/$DOMAIN.crt \
     -extensions v3_req \
-    -extfile $CONFIG
+    -extfile $DIR/$CONFIG
 
-# Delete signing request
-rm proxy.csr
+# Delete signing request.
+rm $DIR/proxy.csr
