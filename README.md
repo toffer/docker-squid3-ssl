@@ -46,6 +46,35 @@ The `squid3-SSL` image expects the CA certificate and private key to reside in t
     $ docker run -d -p 3128:3128 -v /path/to/docker-squid3-ssl/certs:/etc/squid3/certs squid3-ssl
 
 
+Using the Squid3 Proxy
+----------------------
+### Trust the Self-signed Certificate
+To use the proxy, your computer needs to trust the self-signed certificate. To install the CA certificate on Ubuntu, follow these steps:
+
+    # "proxy.docker.dev.crt" is the name of the self-signed certificate.
+    $ sudo cp proxy.docker.dev.crt /usr/share/ca-certificates
+    $ sudo sh -c 'echo "proxy.docker.dev.crt" >> /etc/ca-certificates.conf'
+    $ sudo /usr/sbin/update-ca-certificates --fresh
+
+Consult [this page](http://mitmproxy.org/doc/ssl.html) for instructions how to install on a different OS.
+
+
+### Add Entry in /etc/hosts
+In addition, your computer needs to be able to resolve the name of the proxy. The easiest way to achieve this is to add an entry in `/etc/hosts` for the proxy.
+
+    # Example entry in /etc/hosts/
+    192.168.31.28   proxy.docker.dev
+
+
+### Is it Working?
+Run this command twice and check the `X-Cache` header that Squid sets in the reponses. The second response should show a cache hit.
+
+    $ curl -s -i -x http://proxy.docker.dev:3128 https://httpbin.org/ip | grep 'X-Cache:'
+    X-Cache: MISS from 54ab989722f0
+
+    $ curl -s -i -x http://proxy.docker.dev:3128 https://httpbin.org/ip | grep 'X-Cache:'
+    X-Cache: HIT from 54ab989722f0
+
 
 License
 -------
