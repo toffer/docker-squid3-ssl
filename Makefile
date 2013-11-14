@@ -1,5 +1,5 @@
 current_dir:=$(shell pwd)
-build_tag = 'squid3-ssl-build-debs'
+build_tag = 'squid3-ssl-build'
 image_tag = 'squid3-ssl'
 
 .PHONY: debs build_debs copy_debs certs image
