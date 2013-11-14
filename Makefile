@@ -1,4 +1,4 @@
-current_dir = $(shell pwd)
+current_dir:=$(shell pwd)
 build_tag = 'squid3-ssl-build-debs'
 image_tag = 'squid3-ssl'
 
