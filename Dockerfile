@@ -36,6 +36,8 @@ RUN chown -R proxy:proxy /var/lib/ssl_db
 # Create cache directory
 RUN mkdir /srv/squid3
 RUN chown proxy:proxy /srv/squid3
+RUN touch /srv/squid3/init_volume
+VOLUME /srv/squid3
 
 # Install run.sh and make-certs.sh
 ADD bin /usr/local/bin/
